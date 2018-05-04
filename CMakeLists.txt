@@ -35,17 +35,14 @@ endif()
 
 # add definitions to the library and targets that consume it
 target_compile_definitions(GSL INTERFACE
-    $<$<CXX_COMPILER_ID:MSVC>:
-        # remove unnecessary warnings about unchecked iterators
-        _SCL_SECURE_NO_WARNINGS
-    >
+    # remove unnecessary warnings about unchecked iterators
+    $<$<CXX_COMPILER_ID:MSVC>:_SCL_SECURE_NO_WARNINGS>
 )
 
 # add include folders to the library and targets that consume it
-target_include_directories(GSL INTERFACE
-    $<BUILD_INTERFACE:
-        ${CMAKE_CURRENT_SOURCE_DIR}/include
-    >
+target_include_directories(GSL SYSTEM INTERFACE
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
 )
 
 if ((CMAKE_VERSION GREATER 3.7.9) OR (CMAKE_VERSION EQUAL 3.7.9))
