@@ -64,6 +64,21 @@ install(
     DIRECTORY include/gsl
     DESTINATION include
 )
+install(
+    TARGETS GSL
+    EXPORT CppGSL
+    PUBLIC_HEADER DESTINATION include
+)
+install(
+    EXPORT      CppGSL
+    NAMESPACE   CppGSL::
+    DESTINATION lib/cmake/CppGSL
+    FILE        CppGslConfig.cmake
+)
+export(
+    EXPORT    CppGSL
+    NAMESPACE CppGSL::
+)
 
 option(GSL_TEST "Generate tests." ${GSL_STANDALONE_PROJECT})
 if (GSL_TEST)
